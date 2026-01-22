@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acid–Base Classification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;       /* Modern Blue */
+            --primary-hover: #1d4ed8;       /* Darker Blue */
+            --background-color: #f3f4f6;    /* Light Gray */
+            --card-background: #ffffff;     /* White */
+            --text-main: #1f2937;           /* Dark Gray */
+            --text-secondary: #6b7280;      /* Muted Gray */
+            --border-color: #e5e7eb;        /* Light Border */
+            --success-bg: #d1fae5;          /* Light Green for results */
+            --success-text: #065f46;        /* Dark Green for results */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container Card */
+        .app-container {
+            background-color: var(--card-background);
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 
+                        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #fafafa;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Prediction Result Box */
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #a7f3d0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .result-box h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h2>🧪 Acid–Base Classifier</h2>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="pH">pH Level</label>
+                <input type="number" step="0.01" id="pH" name="pH" placeholder="e.g. 7.0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hardness">Hardness (mg/L)</label>
+                <input type="number" step="0.01" id="hardness" name="hardness" placeholder="e.g. 200" required>
+            </div>
+
+            <div class="form-group">
+                <label for="solids">Total Dissolved Solids</label>
+                <input type="number" step="0.01" id="solids" name="solids" placeholder="e.g. 15000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="conductivity">Conductivity (μS/cm)</label>
+                <input type="number" step="0.01" id="conductivity" name="conductivity" placeholder="e.g. 400" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sulfate">Sulfate (mg/L)</label>
+                <input type="number" step="0.01" id="sulfate" name="sulfate" placeholder="e.g. 300" required>
+            </div>
+
+            <button type="submit">Analyze Sample</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-box">
+            <h3>Result: {{ prediction }}</h3>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
