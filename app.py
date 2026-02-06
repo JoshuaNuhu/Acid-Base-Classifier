@@ -12,13 +12,13 @@ def home():
     prediction = None
 
     if request.method == "POST":
-        pH = float(request.form["pH"])
+        Organic_carbon = float(request.form["Organic_carbon"])
         hardness = float(request.form["hardness"])
         solids = float(request.form["solids"])
         conductivity = float(request.form["conductivity"])
         sulfate = float(request.form["sulfate"])
 
-        input_data = np.array([[pH, hardness, solids, conductivity, sulfate]])
+        input_data = np.array([[Organic_carbon, hardness, solids, conductivity, sulfate]])
         result = model.predict(input_data)[0]
 
         prediction = "Basic" if result == 1 else "Acidic"
